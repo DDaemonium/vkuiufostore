@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.js": "/vkuiufostore/static/js/main.70814c7d.chunk.js",
-    "main.js.map": "/vkuiufostore/static/js/main.70814c7d.chunk.js.map",
+    "main.js": "/vkuiufostore/static/js/main.3d6ba6d6.chunk.js",
+    "main.js.map": "/vkuiufostore/static/js/main.3d6ba6d6.chunk.js.map",
     "runtime-main.js": "/vkuiufostore/static/js/runtime-main.bef931e6.js",
     "runtime-main.js.map": "/vkuiufostore/static/js/runtime-main.bef931e6.js.map",
     "static/css/2.b318b159.chunk.css": "/vkuiufostore/static/css/2.b318b159.chunk.css",
-    "static/js/2.9105267f.chunk.js": "/vkuiufostore/static/js/2.9105267f.chunk.js",
-    "static/js/2.9105267f.chunk.js.map": "/vkuiufostore/static/js/2.9105267f.chunk.js.map",
+    "static/js/2.93e680a5.chunk.js": "/vkuiufostore/static/js/2.93e680a5.chunk.js",
+    "static/js/2.93e680a5.chunk.js.map": "/vkuiufostore/static/js/2.93e680a5.chunk.js.map",
     "index.html": "/vkuiufostore/index.html",
     "static/css/2.b318b159.chunk.css.map": "/vkuiufostore/static/css/2.b318b159.chunk.css.map",
-    "static/js/2.9105267f.chunk.js.LICENSE.txt": "/vkuiufostore/static/js/2.9105267f.chunk.js.LICENSE.txt"
+    "static/js/2.93e680a5.chunk.js.LICENSE.txt": "/vkuiufostore/static/js/2.93e680a5.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.bef931e6.js",
     "static/css/2.b318b159.chunk.css",
-    "static/js/2.9105267f.chunk.js",
-    "static/js/main.70814c7d.chunk.js"
+    "static/js/2.93e680a5.chunk.js",
+    "static/js/main.3d6ba6d6.chunk.js"
   ]
 }
