@@ -1,17 +1,21 @@
 ﻿import '@vkontakte/vkui/dist/vkui.css';
 
 import * as React from 'react';
-import { Text, AppRoot, ConfigProvider, AdaptivityProvider, withAdaptivity, usePlatform, SplitLayout, SplitCol, Epic, Panel, Placeholder, View, Group, PanelHeaderBack, PanelHeader, Tabbar, TabbarItem, VKCOM, ViewWidth, Cell, CardGrid, Card, Search, ContentCard, Div, Button, Headline, Caption, Gradient, Avatar, Title, Header, SimpleCell, CellButton, SizeType, InfoRow } from '@vkontakte/vkui';
-import { Icon16Search, Icon16ShoppingCartOutline, Icon28ClipOutline, Icon28MessageOutline, Icon28NewsfeedOutline, Icon28ServicesOutline, Icon28UserCircleOutline, Icon56NewsfeedOutline } from '@vkontakte/icons';
+import { Text, AppRoot, ConfigProvider, AdaptivityProvider, withAdaptivity, usePlatform, SplitLayout, SplitCol, Epic, Panel, Placeholder, View, Group, PanelHeaderBack, PanelHeader, Tabbar, TabbarItem, VKCOM, ViewWidth, Cell, CardGrid, Card, Div, Button, Headline, Header, SimpleCell, InfoRow } from '@vkontakte/vkui';
+import { Icon16Search, Icon28ShoppingCartOutline, Icon28ClipOutline, Icon28NewsfeedOutline, Icon28ServicesOutline, Icon28UserCircleOutline } from '@vkontakte/icons';
 import ReactDOM from 'react-dom';
-import { IsDivisibleBy } from 'class-validator';
+import { GetCurrentPage } from './store/API';
+import Partners from './components/Partners';
+import Products from './components/Products';
 
 const Example = withAdaptivity(({ viewWidth }) => {
     const platform = usePlatform();
-    const [activeStory, setActiveStory] = React.useState('profile');
+    const currentPage = GetCurrentPage();
+    const [activeStory, setActiveStory] = React.useState(currentPage);
     const onStoryChange = (e: any) => setActiveStory(e.currentTarget.dataset.story);
+    const onPageChange = (e: any) => setActiveStory(e);
     const isDesktop = viewWidth >= ViewWidth.TABLET;
-    const hasHeader = platform !== VKCOM;
+    const hasHeader = platform !== VKCOM;    
 
     return (
         <SplitLayout
@@ -24,12 +28,12 @@ const Example = withAdaptivity(({ viewWidth }) => {
                         {hasHeader && <PanelHeader />}
                         <Group>
                             <Cell
-                                disabled={activeStory === 'feed'}
-                                style={activeStory === 'feed' ? {
+                                disabled={activeStory === 'partners'}
+                                style={activeStory === 'partners' ? {
                                     backgroundColor: "var(--button_secondary_background)",
                                     borderRadius: 8
                                 } : {}}
-                                data-story="feed"
+                                data-story="partners"
                                 onClick={onStoryChange}
                                 before={<Icon28NewsfeedOutline />}
                             >
@@ -48,16 +52,16 @@ const Example = withAdaptivity(({ viewWidth }) => {
                                 Категории
                             </Cell>
                             <Cell
-                                disabled={activeStory === 'messages'}
-                                style={activeStory === 'messages' ? {
+                                disabled={activeStory === 'products'}
+                                style={activeStory === 'products' ? {
                                     backgroundColor: "var(--button_secondary_background)",
                                     borderRadius: 8
                                 } : {}}
-                                data-story="messages"
+                                data-story="products"
                                 onClick={onStoryChange}
-                                before={<Icon28MessageOutline />}
+                                before={<Icon28ShoppingCartOutline />}
                             >
-                                Поиск
+                                Товары
                             </Cell>
                             <Cell
                                 disabled={activeStory === 'clips'}
@@ -98,9 +102,9 @@ const Example = withAdaptivity(({ viewWidth }) => {
                     <Tabbar>
                         <TabbarItem
                             onClick={onStoryChange}
-                            selected={activeStory === 'feed'}
-                            data-story="feed"
-                            text="Новости"
+                            selected={activeStory === 'partners'}
+                            data-story="partners"
+                            text="Партнёры"
                         ><Icon28NewsfeedOutline /></TabbarItem>
                         <TabbarItem
                             onClick={onStoryChange}
@@ -110,11 +114,11 @@ const Example = withAdaptivity(({ viewWidth }) => {
                         ><Icon28ServicesOutline /></TabbarItem>
                         <TabbarItem
                             onClick={onStoryChange}
-                            selected={activeStory === 'messages'}
-                            data-story="messages"
+                            selected={activeStory === 'products'}
+                            data-story="products"
                             label="12"
-                            text="Сообщения"
-                        ><Icon28MessageOutline /></TabbarItem>
+                            text="Товары"
+                        ><Icon28ShoppingCartOutline /></TabbarItem>
                         <TabbarItem
                             onClick={onStoryChange}
                             selected={activeStory === 'clips'}
@@ -129,54 +133,11 @@ const Example = withAdaptivity(({ viewWidth }) => {
                         ><Icon28UserCircleOutline /></TabbarItem>
                     </Tabbar>
                 }>
-                    <View id="feed" activePanel="feed">
-                        <Panel id="feed">
-                            <PanelHeader left={<PanelHeaderBack />}>Новости</PanelHeader>
+                    <View id="partners" activePanel="partners">
+                        <Panel id="partners">
+                            <PanelHeader>Партнёры</PanelHeader>
                             <Group style={{ height: '1200px' }}>
-                                <CardGrid size={isDesktop ? 's' : 'l'}>
-                                    <Card mode="shadow">
-                                        <SimpleCell>
-                                            <InfoRow header="Общий бюджет">
-                                                3000 р.
-                                            </InfoRow>
-                                        </SimpleCell>
-                                    </Card>
-                                    <Card mode="shadow">
-                                        <SimpleCell>
-                                            <InfoRow header="Общий бюджет">
-                                                3000 р.
-                                            </InfoRow>
-                                        </SimpleCell>
-                                    </Card>
-                                    <Card mode="shadow">
-                                        <SimpleCell>
-                                            <InfoRow header="Общий бюджет">
-                                                3000 р.
-                                            </InfoRow>
-                                        </SimpleCell>
-                                    </Card>
-                                    <Card mode="shadow">
-                                        <SimpleCell>
-                                            <InfoRow header="Общий бюджет">
-                                                3000 р.
-                                            </InfoRow>
-                                        </SimpleCell>
-                                    </Card>
-                                    <Card mode="shadow">
-                                        <SimpleCell>
-                                            <InfoRow header="Общий бюджет">
-                                                3000 р.
-                                            </InfoRow>
-                                        </SimpleCell>
-                                    </Card>
-                                    <Card mode="shadow">
-                                        <SimpleCell>
-                                            <InfoRow header="Общий бюджет">
-                                                3000 р.
-                                            </InfoRow>
-                                        </SimpleCell>
-                                    </Card>
-                                </CardGrid>
+                                <Partners isDesktop={isDesktop} />
                             </Group>
                         </Panel>
                     </View>
@@ -189,105 +150,10 @@ const Example = withAdaptivity(({ viewWidth }) => {
                             </Group>
                         </Panel>
                     </View>
-                    <View id="messages" activePanel="messages">
-                        <Panel id="messages">
-                            <PanelHeader left={<PanelHeaderBack />}>Сообщения</PanelHeader>
-                            <Group description="Внутри Group">
-                                <Search after={null} />
-                                <CardGrid size={isDesktop ? 's' : 'l'}>
-                                    <ContentCard
-                                        image="https://images.unsplash.com/photo-1603988492906-4fb0fb251cf8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80"
-                                        subtitle="unsplash"
-                                        header="brown and gray mountains under blue sky during daytime photo"
-                                        text="Mountain changji"
-                                        caption="Photo by Siyuan on Unsplash"
-                                        maxHeight={400}
-                                    />
-                                    <ContentCard
-                                        image="https://images.unsplash.com/photo-1603988492906-4fb0fb251cf8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80"
-                                        subtitle="unsplash"
-                                        header="brown and gray mountains under blue sky during daytime photo"
-                                        text="Mountain changji"
-                                        caption="Photo by Siyuan on Unsplash"
-                                        maxHeight={400}
-                                    />
-                                    <ContentCard
-                                        image="https://images.unsplash.com/photo-1603988492906-4fb0fb251cf8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80"
-                                        subtitle="unsplash"
-                                        header="brown and gray mountains under blue sky during daytime photo"
-                                        text="Mountain changji"
-                                        caption="Photo by Siyuan on Unsplash"
-                                        maxHeight={400}
-                                    />
-                                </CardGrid>
-                                <CardGrid size={isDesktop ? 's' : 'l'}>
-                                    <Card mode="shadow">
-                                        <div style={{ padding: 1 }}>
-                                            <img loading="lazy" style={{ maxWidth: isDesktop ? 210 : '100%', width: isDesktop ? 210 : '100%', maxHeight: isDesktop ? 210 : '100%', height: isDesktop ? 210 : '100%', objectFit: 'scale-down', position: 'relative' }} src="https://img1.foroffice.ru/upload/iblock/1db/fargo_ribbons_gold.jpg" alt="Картридж с лентой и чистящим валиком золотой металлик Fargo 45130" />
-                                        </div>
-                                        <Div>
-                                            <Headline weight="regular" style={{ marginBottom: 16 }}>BF Goodrich G Grip 195/60 R15 88H Без шипов</Headline>
-                                            <Text weight="medium" style={{ marginBottom: 16 }}>4080₽</Text>
-                                            <Text weight="regular">Модель: G Grip 195/60 R15 88H Без шипов</Text>
-                                            <Text weight="regular">Производитель: BF Goodrich</Text>
-                                        </Div>
-                                        <Div style={{ display: 'flex' }}>
-                                            <Button size="m" stretched style={{ marginRight: 8 }}>Подробнее</Button>
-                                            <Button before={<Icon16ShoppingCartOutline />} size="m" stretched mode="commerce">Купить</Button>
-                                        </Div>
-                                        <Div>
-                                            <Button before={<Icon16Search />} size="m" stretched mode="secondary">Похожее</Button>
-                                        </Div>
-                                    </Card>
-                                    <Card mode="shadow">
-                                        <div style={{ padding: 1 }}>
-                                            <img loading="lazy" style={{ maxWidth: isDesktop ? 210 : '100%', width: isDesktop ? 210 : '100%', maxHeight: isDesktop ? 210 : '100%', height: isDesktop ? 210 : '100%', objectFit: 'scale-down', position: 'relative' }} src="https://img1.foroffice.ru/upload/iblock/1db/fargo_ribbons_gold.jpg" alt="Картридж с лентой и чистящим валиком золотой металлик Fargo 45130" />
-                                        </div>
-                                        <Div>
-                                            <Headline weight="regular" style={{ marginBottom: 16 }}>BF Goodrich G Grip 195/60 R15 88H Без шипов</Headline>
-                                            <Text weight="medium" style={{ marginBottom: 16 }}>4080₽</Text>
-                                            <Text weight="regular">Модель: G Grip 195/60 R15 88H Без шипов</Text>
-                                            <Text weight="regular">Производитель: BF Goodrich</Text>
-                                        </Div>
-                                        <Div style={{ display: 'flex' }}>
-                                            <Button size="m" stretched style={{ marginRight: 8 }}>Подробнее</Button>
-                                            <Button before={<Icon16ShoppingCartOutline />} size="m" stretched mode="commerce">Купить</Button>
-                                        </Div>
-                                        <Div>
-                                            <Button before={<Icon16Search />} size="m" stretched mode="secondary">Похожее</Button>
-                                        </Div>
-                                    </Card>
-                                    <Card mode="shadow">
-                                        <div style={{ padding: 1 }}>
-                                            <img loading="lazy" style={{ maxWidth: isDesktop ? 210 : '100%', width: isDesktop ? 210 : '100%', maxHeight: isDesktop ? 210 : '100%', height: isDesktop ? 210 : '100%', objectFit: 'scale-down', position: 'relative' }} src="https://img1.foroffice.ru/upload/iblock/1db/fargo_ribbons_gold.jpg" alt="Картридж с лентой и чистящим валиком золотой металлик Fargo 45130" />
-                                        </div>
-                                        <Div>
-                                            <Headline weight="regular" style={{ marginBottom: 16 }}>BF Goodrich G Grip 195/60 R15 88H Без шипов</Headline>
-                                            <Text weight="medium" style={{ marginBottom: 16 }}>4080₽</Text>
-                                            <Text weight="regular">Модель: G Grip 195/60 R15 88H Без шипов</Text>
-                                            <Text weight="regular">Производитель: BF Goodrich</Text>
-                                        </Div>
-                                        <Div style={{ display: 'flex' }}>
-                                            <Button size="m" stretched style={{ marginRight: 8 }}>Подробнее</Button>
-                                            <Button before={<Icon16ShoppingCartOutline />} size="m" stretched mode="commerce">Купить</Button>
-                                        </Div>
-                                        <Div>
-                                            <Button before={<Icon16Search />} size="m" stretched mode="secondary">Похожее</Button>
-                                        </Div>
-                                    </Card>
-                                </CardGrid>
-                                <CardGrid size={isDesktop ? 's' : 'l'}>
-                                    <Card>
-                                        <div style={{ paddingBottom: '92%' }} />
-                                    </Card>
-                                    <Card>
-                                        <div style={{ paddingBottom: '92%' }} />
-                                    </Card>
-                                    <Card>
-                                        <div style={{ paddingBottom: '92%' }} />
-                                    </Card>
-                                </CardGrid>
-                            </Group>
+                    <View id="products" activePanel="products">
+                        <Panel id="products">
+                            <PanelHeader>Товары</PanelHeader>
+                            <Products isDesktop={isDesktop} />
                         </Panel>
                     </View>
                     <View id="clips" activePanel="clips">
@@ -313,7 +179,7 @@ const Example = withAdaptivity(({ viewWidth }) => {
                                         </div>
                                         
                                         <Div>
-                                            <Button before={<Icon16ShoppingCartOutline />} size="l" stretched mode="commerce">Купить на kolesa-darom.ru</Button>
+                                            <Button before={<Icon28ShoppingCartOutline />} size="l" stretched mode="commerce">Купить на kolesa-darom.ru</Button>
                                         </Div>
                                     </Card>
                                     <Card mode="shadow">
@@ -374,7 +240,7 @@ const Example = withAdaptivity(({ viewWidth }) => {
                                         </Div>
                                         <Div style={{ display: 'flex' }}>
                                             <Button size="m" stretched style={{ marginRight: 8 }}>Подробнее</Button>
-                                            <Button before={<Icon16ShoppingCartOutline />} size="m" stretched mode="commerce">Купить</Button>
+                                            <Button before={<Icon28ShoppingCartOutline />} size="m" stretched mode="commerce">Купить</Button>
                                         </Div>
                                         <Div>
                                             <Button before={<Icon16Search />} size="m" stretched mode="secondary">Похожее</Button>
@@ -392,7 +258,7 @@ const Example = withAdaptivity(({ viewWidth }) => {
                                         </Div>
                                         <Div style={{ display: 'flex' }}>
                                             <Button size="m" stretched style={{ marginRight: 8 }}>Подробнее</Button>
-                                            <Button before={<Icon16ShoppingCartOutline />} size="m" stretched mode="commerce">Купить</Button>
+                                            <Button before={<Icon28ShoppingCartOutline />} size="m" stretched mode="commerce">Купить</Button>
                                         </Div>
                                         <Div>
                                             <Button before={<Icon16Search />} size="m" stretched mode="secondary">Похожее</Button>
@@ -410,7 +276,7 @@ const Example = withAdaptivity(({ viewWidth }) => {
                                         </Div>
                                         <Div style={{ display: 'flex' }}>
                                             <Button size="m" stretched style={{ marginRight: 8 }}>Подробнее</Button>
-                                            <Button before={<Icon16ShoppingCartOutline />} size="m" stretched mode="commerce">Купить</Button>
+                                            <Button before={<Icon28ShoppingCartOutline />} size="m" stretched mode="commerce">Купить</Button>
                                         </Div>
                                         <Div>
                                             <Button before={<Icon16Search />} size="m" stretched mode="secondary">Похожее</Button>
